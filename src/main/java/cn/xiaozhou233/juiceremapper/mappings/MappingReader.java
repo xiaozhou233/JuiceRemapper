@@ -1,13 +1,19 @@
 package cn.xiaozhou233.juiceremapper.mappings;
 
+import cn.xiaozhou233.juiceremapper.mappings.beans.ClassBean;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MappingReader {
+    private HashMap<String, ClassBean> classMap = new HashMap<>();
+    private HashMap<String, ClassBean> classMapReverse = new HashMap<>();
+
     private String path;
 
     public MappingReader(MappingVersion version) {
@@ -30,7 +36,10 @@ public class MappingReader {
                 String[] split = line.split(" ");
                 switch (split[0]) {
                     case "CL:" :
-                        // TODO: implement class mapping
+                        // Class Mappings
+                        ClassBean bean = new ClassBean(split[1], split[2]);
+                        classMap.put(split[1], bean);
+                        classMapReverse.put(split[2], bean);
                         break;
                     case "MD:" :
                         // TODO: implement method mapping
