@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassBean {
-    public String name;
     public String obfuscatedName;
+    public String name;
 
-    public ClassBean(String name, String obfuscatedName) {
+    public ClassBean(String obfuscatedName, String name) {
         this.name = name;
         this.obfuscatedName = obfuscatedName;
     }
