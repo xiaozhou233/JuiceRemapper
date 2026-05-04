@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class ClassBean {
     public String obfuscatedName;
-    public String name;
+    public String mcpName;
 
-    public ClassBean(String obfuscatedName, String name) {
-        this.name = name;
+    public ClassBean(String obfuscatedName, String mcpName) {
+        this.mcpName = mcpName;
         this.obfuscatedName = obfuscatedName;
     }
 }
