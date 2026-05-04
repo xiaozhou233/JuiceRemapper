@@ -1,6 +1,6 @@
 package cn.xiaozhou233.juiceremapper.mappings;
 
-import cn.xiaozhou233.juiceremapper.mappings.beans.ClassBean;
+import cn.xiaozhou233.juiceremapper.mappings.beans.MethodBean;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,12 +11,32 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class MappingReader {
-    private HashMap<String, ClassBean> classMap = new HashMap<>();
-    private HashMap<String, ClassBean> classMapReverse = new HashMap<>();
 
-    private String path;
+    // =========================
+    // Class mappings
+    // obf -> mcp
+    // =========================
+    private final HashMap<String, String> classMap = new HashMap<>();
+    private final HashMap<String, String> classMapReverse = new HashMap<>();
+
+    // =========================
+    // Method mappings
+    // key: owner/name desc
+    // =========================
+    private final HashMap<String, MethodBean> methodMap = new HashMap<>();
+    private final HashMap<String, MethodBean> methodMapReverse = new HashMap<>();
+
+    // =========================
+    // Field mappings
+    // key: owner/name
+    // =========================
+    private final HashMap<String, String> fieldMap = new HashMap<>();
+    private final HashMap<String, String> fieldMapReverse = new HashMap<>();
+
+    private final String path;
 
     public MappingReader(MappingVersion version) {
+
         if (Objects.requireNonNull(version) == MappingVersion.V1_8_9) {
             path = "/mappings/1.8.9/vanilla.srg";
         } else {
@@ -32,21 +52,46 @@ public class MappingReader {
                 new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 
             String line;
+
             while ((line = reader.readLine()) != null) {
+
+                if (line.isEmpty()) continue;
+
                 String[] split = line.split(" ");
+
                 switch (split[0]) {
-                    case "CL:" :
-                        // Class Mappings
-                        ClassBean bean = new ClassBean(split[1], split[2]);
-                        classMap.put(split[1], bean);
-                        classMapReverse.put(split[2], bean);
+
+                    case "CL:":
+                        String obfClass = split[1];
+                        String mcpClass = split[2];
+
+                        classMap.put(obfClass, mcpClass);
+                        classMapReverse.put(mcpClass, obfClass);
                         break;
-                    case "MD:" :
-                        // TODO: implement method mapping
+
+                    case "MD:":
+                        MethodBean bean = new MethodBean(
+                                split[1],
+                                split[2],
+                                split[3],
+                                split[4]
+                        );
+
+                        String obfKey = split[1] + " " + split[2];
+                        String mcpKey = split[3] + " " + split[4];
+
+                        methodMap.put(obfKey, bean);
+                        methodMapReverse.put(mcpKey, bean);
                         break;
-                    case "FD:" :
-                        // TODO: implement field mapping
+
+                    case "FD:":
+                        String obfField = split[1];
+                        String mcpField = split[2];
+
+                        fieldMap.put(obfField, mcpField);
+                        fieldMapReverse.put(mcpField, obfField);
                         break;
+
                     default:
                         System.out.println("Unknown mapping type: " + split[0]);
                         break;
@@ -58,7 +103,34 @@ public class MappingReader {
         }
     }
 
-    public static void main(String[] args) {
-        new MappingReader(MappingVersion.V1_8_9);
+    // =========================================================
+    // API
+    // =========================================================
+
+    // Class
+    public String mapClass(String obf) {
+        return classMap.getOrDefault(obf, obf);
+    }
+
+    public String unmapClass(String mcp) {
+        return classMapReverse.getOrDefault(mcp, mcp);
+    }
+
+    // Field
+    public String mapField(String owner, String name) {
+        return fieldMap.getOrDefault(owner + "/" + name, name);
+    }
+
+    public String unmapField(String owner, String name) {
+        return fieldMapReverse.getOrDefault(owner + "/" + name, name);
+    }
+
+    // Method
+    public MethodBean mapMethod(String owner, String name, String desc) {
+        return methodMap.get(owner + "/" + name + " " + desc);
+    }
+
+    public MethodBean unmapMethod(String owner, String name, String desc) {
+        return methodMapReverse.get(owner + "/" + name + " " + desc);
     }
 }
