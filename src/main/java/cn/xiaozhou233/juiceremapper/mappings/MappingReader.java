@@ -101,6 +101,14 @@ public class MappingReader {
         } catch (IOException e) {
             throw new RuntimeException("Failed to read mapping file", e);
         }
+
+        System.out.println("[JuiceRemapper] Mapping Loaded!");
+        System.out.println("[JuiceRemapper] Class: " + classMap.size());
+        System.out.println("[JuiceRemapper] ClassReverse: " + classMapReverse.size());
+        System.out.println("[JuiceRemapper] Method: " + methodMap.size());
+        System.out.println("[JuiceRemapper] MethodReverse: " + methodMapReverse.size());
+        System.out.println("[JuiceRemapper] Field: " + fieldMap.size());
+        System.out.println("[JuiceRemapper] FieldReverse: " + fieldMapReverse.size());
     }
 
     // =========================================================
@@ -132,5 +140,9 @@ public class MappingReader {
 
     public MethodBean unmapMethod(String owner, String name, String desc) {
         return methodMapReverse.get(owner + "/" + name + " " + desc);
+    }
+
+    public static void main(String[] args) {
+        new MappingReader(MappingVersion.V1_8_9);
     }
 }

@@ -14,4 +14,10 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.42")
     annotationProcessor "org.projectlombok:lombok:1.18.42"
 
+
+    implementation("org.ow2.asm:asm-tree:9.8")
+    // https://mvnrepository.com/artifact/org.ow2.asm/asm-tree
+    implementation("org.ow2.asm:asm:9.8")
+    // Source: https://mvnrepository.com/artifact/org.ow2.asm/asm-commons
+    implementation 'org.ow2.asm:asm-commons:9.8'
 }
