@@ -3,12 +3,15 @@ package cn.xiaozhou233.juiceremapper.remapper;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.commons.ClassRemapper;
+import org.objectweb.asm.commons.Remapper;
 
 public class RemapUtils {
 
-    public static byte[] remap(byte[] bytes, HierarchyRemapper remapper) {
+    public static byte[] remap(byte[] bytes, Remapper remapper) {
         ClassReader cr = new ClassReader(bytes);
-        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        ClassWriter cw = new ClassWriter(
+                ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES
+        );
 
         ClassRemapper visitor = new ClassRemapper(cw, remapper);
 
