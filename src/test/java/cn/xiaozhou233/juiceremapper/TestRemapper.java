@@ -1,5 +1,6 @@
 package cn.xiaozhou233.juiceremapper;
 
+import cn.xiaozhou233.juiceagent.api.JuiceAgent;
 import cn.xiaozhou233.juiceremapper.mappings.MappingReader;
 import cn.xiaozhou233.juiceremapper.mappings.MappingVersion;
 import cn.xiaozhou233.juiceremapper.remapper.*;

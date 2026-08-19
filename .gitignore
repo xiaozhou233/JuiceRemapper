@@ -40,3 +40,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+OrangeX.class
+runtime
+OrangeX_new.class
+libagent.log

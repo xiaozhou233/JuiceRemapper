@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.gradleup.shadow" version "8.3.9"
 }
 
 group = 'cn.xiaozhou233.juiceremapper'
@@ -20,4 +21,25 @@ dependencies {
     implementation("org.ow2.asm:asm:9.8")
     // Source: https://mvnrepository.com/artifact/org.ow2.asm/asm-commons
     implementation 'org.ow2.asm:asm-commons:9.8'
+
+    compileOnly files("libraries/JuiceAgent-API-1.4.1+build.1.jar")
+    testImplementation files("libraries/JuiceAgent-API-1.4.1+build.1.jar")
+}
+
+tasks.jar {
+    destinationDirectory.set(file("out"))
+    manifest {
+        attributes 'Build-Version': version
+    }
+}
+
+// JNI Header Build
+tasks.withType(JavaCompile).configureEach {
+    options.headerOutputDirectory.set(file("out"))
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
 }

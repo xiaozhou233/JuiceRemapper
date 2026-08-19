@@ -17,4 +17,30 @@ public class MethodBean {
         this.fullMcpName = fullMcpName;
         this.mcpDesc = mcpDesc;
     }
+
+    public String getObfuscatedOwner() {
+        return fullObfuscatedName.substring(0, fullObfuscatedName.lastIndexOf("/"));
+    }
+
+    public String getObfuscatedName() {
+        return fullObfuscatedName.substring(fullObfuscatedName.lastIndexOf("/") + 1);
+    }
+
+    public String getMcpOwner() {
+        return fullMcpName.substring(0, fullMcpName.lastIndexOf("/"));
+    }
+
+    public String getMcpName() {
+        return fullMcpName.substring(fullMcpName.lastIndexOf("/") + 1);
+    }
+
+    @Override
+    public String toString() {
+        return "MethodBean{" +
+                "fullObfuscatedName='" + fullObfuscatedName + '\'' +
+                ", obfuscatedDesc='" + obfuscatedDesc + '\'' +
+                ", fullMcpName='" + fullMcpName + '\'' +
+                ", mcpDesc='" + mcpDesc + '\'' +
+                '}';
+    }
 }
