@@ -14,6 +14,7 @@ public class TestRemapper {
         MappingReader reader = new MappingReader(MappingVersion.V1_8_9);
 
         InheritanceMap inheritance = new InheritanceMap();
+        inheritance.setMappings(reader);
 
         byte[] originalBytes = IOUtils.toByteArray(TestRemapper.class.getResourceAsStream("/OrangeX.class"));
 

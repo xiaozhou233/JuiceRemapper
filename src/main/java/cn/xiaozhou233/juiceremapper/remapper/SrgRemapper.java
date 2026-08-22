@@ -24,10 +24,10 @@ public class SrgRemapper extends Remapper {
     // Field
     // =========================
     @Override
-    public String mapFieldName(String owner, String name, String descriptor) {
-        String mapped = mappings.mapField(owner, name);
+    public String mapFieldName(String owner,String name,String descriptor) {
+        String mapped = mappings.mapField(owner,name);
 
-        if (mapped == null) return name;
+        if(mapped == null) return name;
 
         return mapped.substring(mapped.lastIndexOf("/") + 1);
     }

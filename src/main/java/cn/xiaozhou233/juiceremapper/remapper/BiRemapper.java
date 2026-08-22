@@ -34,25 +34,25 @@ public class BiRemapper extends Remapper {
     // Field
     // =========================
     @Override
-    public String mapFieldName(String owner, String name, String descriptor) {
+    public String mapFieldName(String owner,String name,String descriptor) {
 
-        String current = owner;
+        String current=owner;
 
-        while (current != null) {
+        while(current!=null){
 
             String mapped;
 
-            if (mode == RemapMode.OBF_TO_MCP) {
-                mapped = mappings.mapField(current, name);
-            } else {
-                mapped = mappings.unmapField(current, name);
+            if(mode==RemapMode.OBF_TO_MCP){
+                mapped=mappings.mapField(current,name);
+            }else{
+                mapped=mappings.unmapField(current,name);
             }
 
-            if (mapped != null) {
-                return mapped.substring(mapped.lastIndexOf("/") + 1);
+            if(mapped!=null){
+                return mapped.substring(mapped.lastIndexOf("/")+1);
             }
 
-            current = inheritance.getSuper(current);
+            current=inheritance.getSuper(current);
         }
 
         return name;
