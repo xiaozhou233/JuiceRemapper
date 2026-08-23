@@ -1,5 +1,12 @@
 # JuiceRemapper
 
+# This project is no longer being updated, as the current version of the OrangeX client is planned to drop support for Badlion and Vanilla.
+
+Known bugs include:
+
+It cannot correctly recognize some inheritance relationships. For example, mc.theWorld.loadedEntityList may be mapped to ave.xxx.loadedEntityList instead of ave.xxx.yyy.
+In obfuscated environments (Badlion/Vanilla), this causes the client to access the wrong field and throw an error.
+
 **English** | [简体中文](README_ZH.md)
 
 JuiceRemapper is a Minecraft 1.8.9 class remapper built on [ASM](https://asm.ow2.io/), providing bidirectional mapping between obfuscated (SRG) names and MCP names. It is the underlying remapping component of the [JuiceAgent](https://github.com/xiaozhou233) ecosystem.
