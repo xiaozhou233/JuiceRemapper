@@ -1,4 +1,6 @@
 # JuiceRemapper
+# 这个项目目前不再更新，因为目前版本的OrangeX客户端已经打算不再支持Badlion/Vanilla 
+已知的BUG有：不能识别部分继承关系，例如mc.theWorld.loadedEntityList会映射成ave.xxx.loadedEntityList而不是ave.xxx.yyy，在混淆环境(Badlion/Vanilla)不会调用正确的字段而报错
 
 [English](README.md) | **简体中文**
 
